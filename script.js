@@ -269,25 +269,42 @@ class FormManager {
             return;
         }
 
+        // Check if API key is configured
+        if (!CONFIG.GEMINI_API_KEY || CONFIG.GEMINI_API_KEY === 'your_gemini_api_key_here') {
+            alert('API key not configured. Please check the config.js file and add your Google Gemini API key.');
+            return;
+        }
+
         const button = document.getElementById('generate-solutions');
         const solutionOutput = document.getElementById('solution-output');
         const solutionContent = document.getElementById('solution-content');
 
         // Set loading state
-        button.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Generating...';
+        button.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Analyzing with Odoo 18...';
         button.disabled = true;
         button.classList.add('loading');
         solutionContent.innerHTML = '';
         solutionOutput.classList.remove('hidden');
 
         try {
-            const prompt = `Act as a senior Odoo ERP consultant. A potential client is migrating from Zoho and has described the following issues with their current system: "${issues}". Based on this, suggest 3-4 potential solutions using Odoo ERP modules or Odoo-specific migration strategies. Format your response as a clear, easy-to-read list.`;
+            const prompt = `You are a senior Odoo 18 ERP consultant. A client migrating from Zoho has described these issues: "${issues}".
+
+Provide 3-4 Odoo 18 solutions that directly address their problems. Use:
+- Professional but friendly tone
+- Simple, non-technical language
+- 1-2 sentences per solution
+- Focus on concrete benefits
+- Bullet points format
+
+Format: • Module Name - Brief explanation. Key benefit: [specific result]
+
+Be concise and solution-focused.`;
 
             let chatHistory = [];
             chatHistory.push({ role: "user", parts: [{ text: prompt }] });
             const payload = { contents: chatHistory };
-            const apiKey = "";
-            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+            const apiKey = CONFIG.GEMINI_API_KEY;
+            const apiUrl = `${CONFIG.GEMINI_API_URL}?key=${apiKey}`;
 
             const response = await this.fetchWithExponentialBackoff(apiUrl, {
                 method: 'POST',
@@ -307,9 +324,9 @@ class FormManager {
 
         } catch (error) {
             console.error('Error generating solutions:', error);
-            solutionContent.textContent = "There was an error generating solutions. Please try again later.";
+            solutionContent.textContent = "Sorry, there was an error generating solutions. Please try again later.";
         } finally {
-            button.innerHTML = '<i class="fas fa-magic mr-2"></i>Generate AI-Powered Solutions';
+            button.innerHTML = '<i class="fas fa-magic mr-2"></i>Get Odoo 18 Solutions';
             button.disabled = false;
             button.classList.remove('loading');
         }
