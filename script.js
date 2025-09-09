@@ -294,11 +294,11 @@ Provide 3-4 Odoo 18 solutions that directly address their problems. Use:
 - Simple, non-technical language
 - 1-2 sentences per solution
 - Focus on concrete benefits
-- Bullet points format
+- Plain text format (no markdown, no asterisks, no special formatting)
 
-Format: • Module Name - Brief explanation. Key benefit: [specific result]
+Format each solution as: Module Name - Brief explanation. Key benefit: specific result
 
-Be concise and solution-focused.`;
+Be concise and solution-focused. Return only plain text without any markdown formatting.`;
 
             let chatHistory = [];
             chatHistory.push({ role: "user", parts: [{ text: prompt }] });
@@ -320,7 +320,9 @@ Be concise and solution-focused.`;
                 generatedText = response.candidates[0].content.parts[0].text;
             }
 
-            solutionContent.innerHTML = generatedText.replace(/\n/g, '<br>');
+            // Clean up the text and format it properly
+            const cleanedText = this.cleanAndFormatText(generatedText);
+            solutionContent.innerHTML = cleanedText;
 
         } catch (error) {
             console.error('Error generating solutions:', error);
@@ -330,6 +332,30 @@ Be concise and solution-focused.`;
             button.disabled = false;
             button.classList.remove('loading');
         }
+    }
+
+    cleanAndFormatText(text) {
+        // Remove markdown formatting
+        let cleaned = text
+            .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') // Convert **bold** to <strong>
+            .replace(/\*(.*?)\*/g, '<em>$1</em>') // Convert *italic* to <em>
+            .replace(/\n\n/g, '<br><br>') // Convert double newlines to paragraph breaks
+            .replace(/\n/g, '<br>') // Convert single newlines to line breaks
+            .replace(/•/g, '•') // Keep bullet points as they are
+            .replace(/\s+/g, ' ') // Clean up extra whitespace
+            .trim();
+        
+        // Wrap each solution in a nice container
+        const solutions = cleaned.split('<br><br>').filter(s => s.trim());
+        if (solutions.length > 1) {
+            return solutions.map(solution => 
+                `<div class="solution-item mb-4 p-4 bg-white rounded-lg border-l-4 border-indigo-500 shadow-sm">
+                    <div class="text-gray-800">${solution}</div>
+                </div>`
+            ).join('');
+        }
+        
+        return `<div class="text-gray-800">${cleaned}</div>`;
     }
 
     async fetchWithExponentialBackoff(url, options, retries = 3, delay = 1000) {
