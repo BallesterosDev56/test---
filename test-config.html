@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Config Test</title>
+</head>
+<body>
+    <h1>Configuration Test</h1>
+    <div id="test-results"></div>
+    
+    <script src="config.js"></script>
+    <script>
+        const results = document.getElementById('test-results');
+        
+        try {
+            if (typeof CONFIG !== 'undefined') {
+                results.innerHTML = `
+                    <h2>✅ CONFIG loaded successfully!</h2>
+                    <p><strong>GEMINI_API_KEY:</strong> ${CONFIG.GEMINI_API_KEY ? 'Set' : 'Not set'}</p>
+                    <p><strong>EMAILJS_SERVICE_ID:</strong> ${CONFIG.EMAILJS_SERVICE_ID}</p>
+                    <p><strong>EMAILJS_TEMPLATE_ID:</strong> ${CONFIG.EMAILJS_TEMPLATE_ID}</p>
+                    <p><strong>EMAILJS_AUTOREPLY_TEMPLATE_ID:</strong> ${CONFIG.EMAILJS_AUTOREPLY_TEMPLATE_ID}</p>
+                    <p><strong>EMAILJS_PUBLIC_KEY:</strong> ${CONFIG.EMAILJS_PUBLIC_KEY}</p>
+                    <p><strong>EMAIL_DESTINATION:</strong> ${CONFIG.EMAIL_DESTINATION}</p>
+                `;
+            } else {
+                results.innerHTML = '<h2>❌ CONFIG is not defined</h2>';
+            }
+        } catch (error) {
+            results.innerHTML = `<h2>❌ Error: ${error.message}</h2>`;
+        }
+    </script>
+</body>
+</html>

@@ -269,6 +269,12 @@ class FormManager {
             return;
         }
 
+        // Check if CONFIG is available
+        if (typeof CONFIG === 'undefined') {
+            alert('Configuration not loaded. Please refresh the page and try again.');
+            return;
+        }
+
         // Check if API key is configured
         if (!CONFIG.GEMINI_API_KEY || CONFIG.GEMINI_API_KEY === 'your_gemini_api_key_here') {
             alert('API key not configured. Please check the config.js file and add your Google Gemini API key.');
@@ -394,6 +400,11 @@ Be concise and solution-focused. Return only plain text without any markdown for
         submitButton.disabled = true;
 
         try {
+            // Check if CONFIG is available
+            if (typeof CONFIG === 'undefined') {
+                throw new Error('Configuration not loaded. Please refresh the page and try again.');
+            }
+
             // Initialize EmailJS
             emailjs.init(CONFIG.EMAILJS_PUBLIC_KEY);
 
@@ -463,6 +474,12 @@ Be concise and solution-focused. Return only plain text without any markdown for
 
     async sendAutoreply() {
         try {
+            // Check if CONFIG is available
+            if (typeof CONFIG === 'undefined') {
+                console.warn('Configuration not loaded. Skipping autoreply.');
+                return;
+            }
+
             // Prepare autoreply data
             const autoreplyData = {
                 to_email: this.formData['contact-email'],
