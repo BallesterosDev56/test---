@@ -405,8 +405,10 @@ Be concise and solution-focused. Return only plain text without any markdown for
                 throw new Error('Configuration not loaded. Please refresh the page and try again.');
             }
 
-            // Initialize EmailJS
-            emailjs.init(CONFIG.EMAILJS_PUBLIC_KEY);
+            // Initialize EmailJS with correct format
+            emailjs.init({
+                publicKey: CONFIG.EMAILJS_PUBLIC_KEY
+            });
 
             // Prepare email data with all form fields
             const emailData = {
