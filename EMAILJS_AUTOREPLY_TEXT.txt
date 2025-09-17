@@ -1,0 +1,48 @@
+Subject: Thank You for Your Interest - Odoo 18 Migration Consultation
+
+Hello {{from_name}},
+
+Thank you for taking the time to complete our Lead Qualification Form! We're excited to learn about {{company_name}}'s business needs and how we can help you migrate to Odoo 18.
+
+YOUR SUBMISSION DETAILS:
+- Company: {{company_name}}
+- Company Size: {{num_users}}
+- Submitted: {{submission_date}}
+
+WHAT HAPPENS NEXT?
+Our team of Odoo 18 experts will review your specific requirements and challenges. Based on your company size and current systems, we'll prepare a personalized consultation plan.
+
+NEXT STEPS:
+✓ Within 24 hours: You'll receive a detailed analysis of your current setup
+✓ Within 48 hours: Our senior consultant will contact you to schedule a discovery call
+✓ Within 1 week: You'll receive a customized Odoo 18 migration roadmap
+
+WHY CHOOSE ODOO 18?
+Odoo 18 offers powerful features that can transform your business:
+- Unified business management platform
+- Advanced automation and workflow management
+- Seamless integration with existing systems
+- Scalable architecture for growing businesses
+- Cost-effective compared to multiple point solutions
+
+NEED IMMEDIATE ASSISTANCE?
+Email: info@zohodoo.com
+Phone: +1 (555) 123-4567
+Website: www.zohodoo.com
+Business Hours: Monday-Friday, 9 AM - 6 PM EST
+
+FREE RESOURCES:
+- Complete Odoo 18 Migration Guide: https://www.zohodoo.com/odoo-18-guide
+- Success Stories & Case Studies: https://www.zohodoo.com/case-studies
+- Upcoming Webinars & Training: https://www.zohodoo.com/webinars
+
+Best regards,
+The ZohoDoo Solutions Team
+
+---
+ZohoDoo Solutions - Your Trusted Odoo 18 Migration Partner
+Website: https://www.zohodoo.com
+Privacy Policy: https://www.zohodoo.com/privacy
+
+This email was sent to {{from_email}} because you submitted our Lead Qualification Form.
+If you didn't request this information, please ignore this email.

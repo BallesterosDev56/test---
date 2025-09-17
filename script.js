@@ -376,13 +376,127 @@ Be concise and solution-focused. Return only plain text without any markdown for
         }
     }
 
-    submitForm(event) {
+    async submitForm(event) {
         event.preventDefault();
         
         if (this.validateCurrentStep()) {
             this.saveCurrentStepData();
-            this.showSuccessMessage();
+            await this.sendEmail();
         }
+    }
+
+    async sendEmail() {
+        const submitButton = document.getElementById('submit-button');
+        const originalText = submitButton.innerHTML;
+        
+        // Show loading state
+        submitButton.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Sending...';
+        submitButton.disabled = true;
+
+        try {
+            // Initialize EmailJS
+            emailjs.init(CONFIG.EMAILJS_PUBLIC_KEY);
+
+            // Prepare email data with all form fields
+            const emailData = {
+                to_email: CONFIG.EMAIL_DESTINATION,
+                from_name: this.formData['contact-name'] || 'Lead Form',
+                from_email: this.formData['contact-email'] || 'no-email@provided.com',
+                company_name: this.formData['company-name'] || 'Not provided',
+                num_users: this.formData['num-users'] || 'Not provided',
+                current_system: Array.isArray(this.formData['current-system']) 
+                    ? this.formData['current-system'].join(', ') 
+                    : (this.formData['current-system'] || 'Not provided'),
+                zoho_apps: Array.isArray(this.formData['zoho-apps']) 
+                    ? this.formData['zoho-apps'].join(', ') 
+                    : (this.formData['zoho-apps'] || 'Not provided'),
+                main_issues: this.formData['main-issues'] || 'Not provided',
+                project_timeline: this.formData['project-timeline'] || 'Not provided',
+                project_budget: this.formData['project-budget'] || 'Not provided',
+                contact_phone: this.formData['contact-phone'] || 'Not provided',
+                message: this.formatEmailMessage(),
+                submission_date: new Date().toLocaleString()
+            };
+
+            // Send email using EmailJS
+            const response = await emailjs.send(
+                CONFIG.EMAILJS_SERVICE_ID,
+                CONFIG.EMAILJS_TEMPLATE_ID,
+                emailData
+            );
+
+            console.log('Email sent successfully:', response);
+            
+            // Send autoreply to the user
+            await this.sendAutoreply();
+            
+            this.showSuccessMessage();
+
+        } catch (error) {
+            console.error('Error sending email:', error);
+            this.showErrorMessage('Failed to send form. Please try again or contact us directly at info@zohodoo.com');
+        } finally {
+            // Restore button state
+            submitButton.innerHTML = originalText;
+            submitButton.disabled = false;
+        }
+    }
+
+    formatEmailMessage() {
+        let message = `New Lead Form Submission\n\n`;
+        message += `Company: ${this.formData['company-name'] || 'Not provided'}\n`;
+        message += `Contact: ${this.formData['contact-name'] || 'Not provided'} (${this.formData['contact-email'] || 'Not provided'})\n`;
+        message += `Phone: ${this.formData['contact-phone'] || 'Not provided'}\n`;
+        message += `Company Size: ${this.formData['num-users'] || 'Not provided'}\n`;
+        message += `Current System: ${Array.isArray(this.formData['current-system']) 
+            ? this.formData['current-system'].join(', ') 
+            : (this.formData['current-system'] || 'Not provided')}\n`;
+        message += `Zoho Apps Used: ${Array.isArray(this.formData['zoho-apps']) 
+            ? this.formData['zoho-apps'].join(', ') 
+            : (this.formData['zoho-apps'] || 'Not provided')}\n`;
+        message += `Main Issues: ${this.formData['main-issues'] || 'Not provided'}\n`;
+        message += `Timeline: ${this.formData['project-timeline'] || 'Not provided'}\n`;
+        message += `Budget: ${this.formData['project-budget'] || 'Not provided'}\n`;
+        
+        return message;
+    }
+
+    async sendAutoreply() {
+        try {
+            // Prepare autoreply data
+            const autoreplyData = {
+                to_email: this.formData['contact-email'],
+                from_name: this.formData['contact-name'] || 'Valued Customer',
+                company_name: this.formData['company-name'] || 'Your Company',
+                num_users: this.formData['num-users'] || 'Not specified',
+                submission_date: new Date().toLocaleString()
+            };
+
+            // Send autoreply using EmailJS
+            const autoreplyResponse = await emailjs.send(
+                CONFIG.EMAILJS_SERVICE_ID,
+                CONFIG.EMAILJS_AUTOREPLY_TEMPLATE_ID,
+                autoreplyData
+            );
+
+            console.log('Autoreply sent successfully:', autoreplyResponse);
+
+        } catch (error) {
+            console.error('Error sending autoreply:', error);
+            // Don't show error to user for autoreply failure
+        }
+    }
+
+    showErrorMessage(message) {
+        const resultBox = document.getElementById('result-box');
+        const resultMessage = document.getElementById('result-message');
+        
+        resultBox.className = 'mt-8 p-4 sm:p-6 lg:p-8 bg-gradient-to-br from-red-50 to-pink-50 rounded-2xl border border-red-200 shadow-lg';
+        resultMessage.textContent = message;
+        resultBox.classList.remove('hidden');
+        
+        // Hide form
+        document.getElementById('lead-form').style.display = 'none';
     }
 
     showSuccessMessage() {

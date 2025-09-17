@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Thank You - Odoo 18 Migration Consultation</title>
+    <style>
+        body {
+            font-family: 'Inter', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f8fafc;
+        }
+        .email-container {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 28px;
+            font-weight: 700;
+        }
+        .header p {
+            margin: 10px 0 0 0;
+            font-size: 16px;
+            opacity: 0.9;
+        }
+        .content {
+            padding: 30px;
+        }
+        .greeting {
+            font-size: 18px;
+            color: #2d3748;
+            margin-bottom: 20px;
+        }
+        .main-message {
+            font-size: 16px;
+            color: #4a5568;
+            margin-bottom: 25px;
+            line-height: 1.7;
+        }
+        .highlight-box {
+            background: linear-gradient(135deg, #e6fffa 0%, #f0fff4 100%);
+            border: 2px solid #38b2ac;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 25px 0;
+        }
+        .highlight-box h3 {
+            color: #2c7a7b;
+            margin: 0 0 15px 0;
+            font-size: 18px;
+        }
+        .next-steps {
+            background: #f7fafc;
+            border-left: 4px solid #667eea;
+            padding: 20px;
+            margin: 25px 0;
+        }
+        .next-steps h3 {
+            color: #2d3748;
+            margin: 0 0 15px 0;
+            font-size: 18px;
+        }
+        .next-steps ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+        .next-steps li {
+            margin-bottom: 8px;
+            color: #4a5568;
+        }
+        .contact-info {
+            background: #fff5f5;
+            border: 1px solid #fed7d7;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 25px 0;
+        }
+        .contact-info h3 {
+            color: #c53030;
+            margin: 0 0 15px 0;
+            font-size: 16px;
+        }
+        .contact-details {
+            color: #4a5568;
+            font-size: 14px;
+        }
+        .footer {
+            background: #2d3748;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-size: 14px;
+        }
+        .footer a {
+            color: #90cdf4;
+            text-decoration: none;
+        }
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 24px;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 600;
+            margin: 15px 0;
+        }
+        .cta-button:hover {
+            background: linear-gradient(135deg, #5a67d8 0%, #6b46c1 100%);
+        }
+        .priority-badge {
+            background: linear-gradient(135deg, #fbb6ce 0%, #f687b3 100%);
+            color: #702459;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            display: inline-block;
+            margin: 10px 0;
+        }
+        .company-info {
+            background: #f0f4f8;
+            padding: 15px;
+            border-radius: 6px;
+            margin: 20px 0;
+            font-size: 14px;
+            color: #4a5568;
+        }
+    </style>
+</head>
+<body>
+    <div class="email-container">
+        <div class="header">
+            <h1>🚀 Thank You for Your Interest!</h1>
+            <p>Odoo 18 Migration & Business Solutions</p>
+        </div>
+        
+        <div class="content">
+            <div class="greeting">
+                Hello {{from_name}},
+            </div>
+            
+            <div class="main-message">
+                Thank you for taking the time to complete our Lead Qualification Form! We're excited to learn about {{company_name}}'s business needs and how we can help you migrate to Odoo 18.
+            </div>
+            
+            <div class="company-info">
+                <strong>Your Submission Details:</strong><br>
+                Company: {{company_name}}<br>
+                Company Size: {{num_users}}<br>
+                Submitted: {{submission_date}}
+            </div>
+            
+            <div class="highlight-box">
+                <h3>🎯 What Happens Next?</h3>
+                <p>Our team of Odoo 18 experts will review your specific requirements and challenges. Based on your company size and current systems, we'll prepare a personalized consultation plan.</p>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p><strong>ZohoDoo Solutions</strong> - Your Trusted Odoo 18 Migration Partner</p>
+            <p>
+                <a href="https://www.zohodoo.com">Website</a> | 
+                <a href="https://www.zohodoo.com/privacy">Privacy Policy</a> | 
+                <a href="https://www.zohodoo.com/contact">Contact Us</a>
+            </p>
+            <p style="font-size: 12px; opacity: 0.8; margin-top: 15px;">
+                This email was sent to {{from_email}} because you submitted our Lead Qualification Form.<br>
+                If you didn't request this information, please ignore this email.
+            </p>
+        </div>
+    </div>
+</body>
+</html>
