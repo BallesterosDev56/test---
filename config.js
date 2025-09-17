@@ -5,7 +5,7 @@ const CONFIG = {
     GEMINI_API_URL: 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent',
     
     // EmailJS Configuration - Using your actual EmailJS credentials
-    EMAILJS_SERVICE_ID: 'service_j13tw71',
+    EMAILJS_SERVICE_ID: 'service_vreftqp',
     EMAILJS_TEMPLATE_ID: 'template_cfd9znw',
     EMAILJS_AUTOREPLY_TEMPLATE_ID: 'template_6m5pvuf',
     EMAILJS_PUBLIC_KEY: 'Bblza8ljqDSWRAS0V',
