@@ -4,11 +4,11 @@ const CONFIG = {
     GEMINI_API_KEY: 'AIzaSyARv8DJaxjkOQBQ5EcG469u1w2udx9e2xs',
     GEMINI_API_URL: 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent',
     
-    // EmailJS Configuration - Replace these with your actual EmailJS credentials
-    EMAILJS_SERVICE_ID: 'your_service_id_here',
-    EMAILJS_TEMPLATE_ID: 'your_template_id_here',
-    EMAILJS_AUTOREPLY_TEMPLATE_ID: 'your_autoreply_template_id_here',
-    EMAILJS_PUBLIC_KEY: 'your_public_key_here',
+    // EmailJS Configuration - Using your actual EmailJS credentials
+    EMAILJS_SERVICE_ID: 'service_vreftqp',
+    EMAILJS_TEMPLATE_ID: 'template_cfd9znw',
+    EMAILJS_AUTOREPLY_TEMPLATE_ID: 'template_6m5pvuf',
+    EMAILJS_PUBLIC_KEY: 'Bblza8ljqDSWRASOV',
     
     // Email destination
     EMAIL_DESTINATION: 'info@zohodoo.com'
