@@ -4,7 +4,6 @@ class FormManager {
         this.currentStep = 1;
         this.totalSteps = 4;
         this.formData = {};
-        this.aiGenerated = false;
         this.init();
     }
 
@@ -93,16 +92,6 @@ class FormManager {
     }
 
     nextStep() {
-        // Enforce AI generation on step 2 before proceeding
-        if (this.currentStep === 2 && !this.aiGenerated) {
-            const aiError = document.getElementById('ai-error');
-            if (aiError) {
-                aiError.textContent = 'Please generate your personalized solutions before continuing.';
-                aiError.classList.remove('hidden');
-            }
-            return;
-        }
-
         if (this.validateCurrentStep()) {
             this.saveCurrentStepData();
             this.currentStep++;
@@ -136,17 +125,6 @@ class FormManager {
         setTimeout(() => {
             currentStepElement.classList.add('active');
         }, 50);
-
-        // Move nav controls under this step
-        const navControls = document.getElementById('nav-controls');
-        if (navControls && currentStepElement) {
-            const innerContainer = currentStepElement.querySelector(':scope > div');
-            if (innerContainer) {
-                innerContainer.appendChild(navControls);
-            } else {
-                currentStepElement.appendChild(navControls);
-            }
-        }
     }
 
     validateCurrentStep() {
@@ -196,7 +174,7 @@ class FormManager {
 
         // Phone validation
         if (field.type === 'tel' && value) {
-            const phoneRegex = /^[\+]?[1-9][\d]{0,15}$/;
+            const phoneRegex = /^[\+]?[^\D][\d]{0,15}$/;
             if (!phoneRegex.test(value.replace(/[\s\-\(\)]/g, ''))) {
                 this.showError(errorElement, 'Please enter a valid phone number');
                 return false;
@@ -289,11 +267,6 @@ class FormManager {
 
     async generateSolutions() {
         const issues = document.getElementById('main-issues').value.trim();
-        const aiError = document.getElementById('ai-error');
-        if (aiError) {
-            aiError.classList.add('hidden');
-            aiError.textContent = '';
-        }
         if (!issues) {
             alert('Please describe your main issues first.');
             return;
@@ -360,7 +333,6 @@ Be concise and solution-focused. Return only plain text without any markdown for
             // Clean up the text and format it properly
             const cleanedText = this.cleanAndFormatText(generatedText);
             solutionContent.innerHTML = cleanedText;
-            this.aiGenerated = true;
 
         } catch (error) {
             console.error('Error generating solutions:', error);
