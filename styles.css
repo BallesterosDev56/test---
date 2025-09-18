@@ -7,6 +7,7 @@ body {
     padding: 0;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    font-size: clamp(15px, 1.6vw, 18px);
 }
 
 .form-container {
@@ -14,6 +15,7 @@ body {
     animation: slideInUp 0.8s ease-out;
     position: relative;
     overflow-x: hidden;
+    width: min(100%, 64rem);
 }
 
 /* Form Step Animations */
@@ -74,6 +76,29 @@ body {
 input:focus, select:focus, textarea:focus {
     transform: scale(1.02);
     box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+}
+
+/* Headings and text scaling */
+h1 {
+    font-size: clamp(1.75rem, 4.2vw, 2.75rem);
+    line-height: 1.2;
+    word-break: break-word;
+}
+
+h2 {
+    font-size: clamp(1.125rem, 2.8vw, 1.5rem);
+    line-height: 1.35;
+    word-break: break-word;
+}
+
+p, label, input, select, textarea, button {
+    word-wrap: break-word;
+    overflow-wrap: anywhere;
+}
+
+/* Inputs sizing fine-tune */
+input, select, textarea {
+    line-height: 1.4;
 }
 
 /* Button Hover Effects */
@@ -220,6 +245,7 @@ button:active {
         padding: 0.5rem;
         min-height: 100vh;
         -webkit-overflow-scrolling: touch;
+        font-size: 16px;
     }
     
     .form-container {
@@ -281,7 +307,7 @@ button:active {
     }
     
     /* Mobile grid adjustments */
-    .grid.grid-cols-1.sm\\:grid-cols-2 {
+    .grid.grid-cols-1.sm\:grid-cols-2 {
         gap: 0.5rem;
     }
     
@@ -299,18 +325,21 @@ button:active {
     }
     
     /* Mobile text sizing */
+    h1 {
+        font-size: clamp(1.5rem, 6vw, 2.25rem);
+    }
     h2 {
-        font-size: 1.25rem;
+        font-size: clamp(1rem, 4.6vw, 1.25rem);
         line-height: 1.4;
     }
     
     p {
-        font-size: 0.875rem;
+        font-size: clamp(0.875rem, 4vw, 1rem);
         line-height: 1.5;
     }
     
     /* Mobile navigation */
-    .flex.flex-col.sm\\:flex-row {
+    .flex.flex-col.sm\:flex-row {
         gap: 0.75rem;
     }
     
@@ -365,11 +394,11 @@ button:active {
     }
     
     h2 {
-        font-size: 1.125rem;
+        font-size: clamp(1rem, 5vw, 1.125rem);
     }
     
     p {
-        font-size: 0.8125rem;
+        font-size: clamp(0.8125rem, 4.2vw, 0.9375rem);
     }
 }
 
@@ -444,5 +473,41 @@ textarea:focus-visible {
     
     .system-option, .app-option {
         border-width: 3px;
+    }
+}
+
+/* Respect safe-area (iOS notches) */
+:root {
+    --safe-top: env(safe-area-inset-top);
+    --safe-right: env(safe-area-inset-right);
+    --safe-bottom: env(safe-area-inset-bottom);
+    --safe-left: env(safe-area-inset-left);
+}
+
+body {
+    padding-left: max(0.5rem, var(--safe-left));
+    padding-right: max(0.5rem, var(--safe-right));
+    padding-top: max(0px, var(--safe-top));
+    padding-bottom: max(0px, var(--safe-bottom));
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation: none !important;
+        transition: none !important;
+    }
+}
+
+/* Landscape small height devices */
+@media (max-height: 580px) and (orientation: landscape) {
+    .form-container {
+        padding: 0.75rem;
+    }
+    .form-step > div {
+        padding: 0.75rem;
+    }
+    h1 {
+        font-size: clamp(1.25rem, 4vw, 1.75rem);
     }
 }

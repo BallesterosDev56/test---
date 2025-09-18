@@ -174,7 +174,7 @@ class FormManager {
 
         // Phone validation
         if (field.type === 'tel' && value) {
-            const phoneRegex = /^[\+]?[1-9][\d]{0,15}$/;
+            const phoneRegex = /^[\+]?[^\D][\d]{0,15}$/;
             if (!phoneRegex.test(value.replace(/[\s\-\(\)]/g, ''))) {
                 this.showError(errorElement, 'Please enter a valid phone number');
                 return false;
@@ -253,7 +253,10 @@ class FormManager {
 
         // Check if high priority lead
         if (this.currentStep === this.totalSteps && this.isHighPriorityLead()) {
-            document.getElementById('calendar-section').classList.remove('hidden');
+            const calendarSection = document.getElementById('calendar-section');
+            if (calendarSection) {
+                calendarSection.classList.remove('hidden');
+            }
         }
     }
 
@@ -286,6 +289,7 @@ class FormManager {
         const solutionContent = document.getElementById('solution-content');
 
         // Set loading state
+        const originalButtonHTML = button.innerHTML;
         button.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Analyzing with Odoo 18...';
         button.disabled = true;
         button.classList.add('loading');
@@ -334,7 +338,7 @@ Be concise and solution-focused. Return only plain text without any markdown for
             console.error('Error generating solutions:', error);
             solutionContent.textContent = "Sorry, there was an error generating solutions. Please try again later.";
         } finally {
-            button.innerHTML = '<i class="fas fa-magic mr-2"></i>Get Odoo 18 Solutions';
+            button.innerHTML = originalButtonHTML || '<i class="fas fa-magic mr-2"></i>Get Personalized Solutions';
             button.disabled = false;
             button.classList.remove('loading');
         }
