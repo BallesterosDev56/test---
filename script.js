@@ -140,7 +140,12 @@ class FormManager {
         // Move nav controls under this step
         const navControls = document.getElementById('nav-controls');
         if (navControls && currentStepElement) {
-            currentStepElement.appendChild(navControls);
+            const innerContainer = currentStepElement.querySelector(':scope > div');
+            if (innerContainer) {
+                innerContainer.appendChild(navControls);
+            } else {
+                currentStepElement.appendChild(navControls);
+            }
         }
     }
 
